@@ -1,5 +1,5 @@
-﻿using ETicaretAPI.Application.Abstraction;
-using ETicaretAPI.Persistence.Concrete;
+﻿using Microsoft.EntityFrameworkCore;
+using ETicaretAPI.Persistence.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,10 @@ namespace ETicaretAPI.Persistence
 {
     public static class ServiceRegistration
     {
+        
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddSingleton<IProductService,ProductService>();
+            services.AddDbContext<ETicaretAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
         }
     }
 }
